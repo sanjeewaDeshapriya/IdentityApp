@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-notification',
@@ -8,10 +8,20 @@ import { Component } from '@angular/core';
   styleUrl: './notification.css'
 })
 export class Notification {
-  isSuccsess: boolean = true;
-  title: string = '';
-  message: string = '';
+
+  @Input() isSuccsess: boolean = true;
+  @Input() title: string = '';
+  @Input() message: string = '';
 
   constructor() { }
+
+  close(){
+    this.isSuccsess = false;
+    this.title = '';
+    this.message = '';
+  }
+
+
+  
 
 }

@@ -73,6 +73,22 @@
 
       </div>
 
+      <div class="form-floting" *ngIf="errorMessage.length>0">
+        <app-validation-messages [errorMessage]="errorMessage" ></app-validation-messages>
+
+
+      </div>
+
+      <div *ngIf="isSuccess">
+        <app-notification
+        [title]="notificationTitle"
+        [message]="notificationMessage"
+        [isSuccsess]="isSuccess">
+        </app-notification>
+
+      </div>
+      
+
       <button type="submit"
         class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition">Create Account</button>
     </form>

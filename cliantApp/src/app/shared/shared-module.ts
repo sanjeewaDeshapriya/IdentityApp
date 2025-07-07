@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ValidationMessages } from './validation-messages/validation-messages/validation-messages';
+import { Notification } from './models/notification/notification';
 
 
 
@@ -17,6 +18,7 @@ import { ValidationMessages } from './validation-messages/validation-messages/va
     ReactiveFormsModule,
     HttpClientModule,
     ValidationMessages,
+    Notification
     // ModalModule.forRoot()
   ],
   exports: [RouterModule,ReactiveFormsModule,HttpClientModule,ValidationMessages]

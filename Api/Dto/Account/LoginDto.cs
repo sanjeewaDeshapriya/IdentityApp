@@ -4,9 +4,9 @@ namespace Api.Dto.Account
 {
     public class LoginDto
     {
-        [Required]
+        [Required (ErrorMessage ="Check User name ")]
         public string userName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Check User Password ")]
         public string password { get; set; }
     }
 }
