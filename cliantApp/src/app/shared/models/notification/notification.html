@@ -1,0 +1,32 @@
+<!-- notification.html -->
+<div
+  *ngIf="title && message"
+  class="fixed inset-0 flex items-center justify-center z-50"
+>
+  <div
+    class="bg-white shadow-xl rounded-2xl p-6 w-full max-w-md border-2"
+    [ngClass]="isSuccsess ? 'border-green-500' : 'border-red-500'"
+  >
+    <!-- Title -->
+    <h2
+      class="text-xl font-semibold mb-2"
+      [ngClass]="isSuccsess ? 'text-green-700' : 'text-red-700'"
+    >
+      {{ title }}
+    </h2>
+
+    <!-- Message -->
+    <p class="text-gray-700 mb-4">{{ message }}</p>
+
+    <!-- Close Button -->
+    <button
+      
+      class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded text-sm"
+    >
+      Close
+    </button>
+  </div>
+
+  <!-- Background Overlay -->
+  <div class="fixed inset-0 bg-black opacity-30"></div>
+</div>
