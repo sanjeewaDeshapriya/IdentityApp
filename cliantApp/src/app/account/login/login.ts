@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AccountModule } from '../account-module';
 import { Account } from '../account';
 import { CommonModule } from '@angular/common';
+import { take } from 'rxjs';
 
 
 @Component({
@@ -25,6 +26,16 @@ export class Login {
     private formBuilder: FormBuilder,
     private router:Router
   ) { 
+    this.accountservice.user$.pipe(take(1)).subscribe({
+      next:(user)=>{
+        if (user){
+          this.router.navigateByUrl('/');
+        }
+      },
+      error:(error)=>{
+        console.error("Error fetching user", error);
+      }
+    });
 
   }
  
@@ -53,6 +64,7 @@ export class Login {
       {
         next:(response)=>{
           console.log(response);
+          this.router.navigateByUrl('/');
        
         
           
