@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DOCUMENT, ElementRef, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Account } from '../account';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,11 @@ import { ValidationMessages } from "../../shared/validation-messages/validation-
 import { Notification } from "../../shared/models/notification/notification";
 import { routes } from '../../app.routes';
 import { Router } from '@angular/router';
+import { CredentialResponse } from 'google-one-tap';
+import { User } from '../../shared/models/account/user';
+import { take } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
+declare const FB: any;
 
 @Component({
   selector: 'app-register',
@@ -15,6 +20,7 @@ import { Router } from '@angular/router';
   styleUrl: './register.css'
 })
 export class Register implements OnInit {
+   @ViewChild('googleButton', {static: true}) googleButton: ElementRef = new ElementRef({});
   regiesterForm : FormGroup = new FormGroup({});
   submitted = false;
   errorMessage : string[] = [];
@@ -27,9 +33,26 @@ export class Register implements OnInit {
   constructor(
     private accountservice:Account,
     private formBuilder: FormBuilder,
-    private router:Router
+    private router:Router,
+    private _renderer2: Renderer2,
+    @Inject(DOCUMENT) private _document: Document
   ) { 
+    this.accountservice.user$.pipe(take(1)).subscribe({
+        next: (user: User | null) => {
+          if (user) {
+            this.router.navigateByUrl('/');
+          }
+        }
+      })
 
+  }
+
+  ngAfterViewInit() {
+    const script1 = this._renderer2.createElement('script');
+    script1.src = 'https://accounts.google.com/gsi/client';
+    script1.async = 'true';
+    script1.defer = 'true';
+    this._renderer2.appendChild(this._document.body, script1);
   }
 
   Register(){
@@ -94,6 +117,7 @@ export class Register implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
+    this.initiazeGoogleButton();
   }
 
   initializeForm(){
@@ -105,5 +129,50 @@ export class Register implements OnInit {
 
     });
   }
+
+   registerWithFacebook(){
+    FB.login(async(fberesult: any) => {
+
+      if(fberesult.authResponse) {
+        const accessToken = fberesult.authResponse.accessToken;
+         const userId = fberesult.authResponse.userID;
+         this.router.navigateByUrl(`/account/register/third-party/facebook?access_token=${accessToken}&userId=${userId}`);
+        console.log(fberesult); }
+        else{
+          alert("User cancelled login or did not fully authorize.");
+        }
+
+      
+      }
+
+      
+    )}
+
+    private initiazeGoogleButton() {
+    (window as any).onGoogleLibraryLoad = () => {
+      // @ts-ignore
+      google.accounts.id.initialize({
+        client_id: '940632980931-ej87k0ef2n2p7ulb07dq50lojlvmsmi0.apps.googleusercontent.com',
+        callback: this.googleCallBack.bind(this),
+        auto_select: false,
+        cancel_on_tap_outside: true
+      });
+      // @ts-ignore
+      google.accounts.id.renderButton(
+        this.googleButton.nativeElement,
+        {size: 'medium', shape: 'rectangular', text: 'signup_with', logo_alignment: 'center'}
+      );
+    };
+  }
+
+  private async googleCallBack(response: CredentialResponse) {
+   const decodedToken: any = jwtDecode(response.credential);
+    this.router.navigateByUrl(`/account/register/third-party/google?access_token=${response.credential}&userId=${decodedToken.sub}`);
+    
+    
+  }
+
+ 
+
 
 }

@@ -13,5 +13,7 @@ namespace Api.Models
         public string LastName { get; set; }
 
         public DateTime DateCrated { get; set; } = DateTime.UtcNow;
+
+        public string Provider { get; set; }
     }
 }

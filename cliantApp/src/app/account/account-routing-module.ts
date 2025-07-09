@@ -8,15 +8,18 @@ import { Register } from './register/register';
 import { ConfirmEmail } from './confirm-email/confirm-email';
 import { SendEmail } from './send-email/send-email';
 import { ResetPassword } from './reset-password/reset-password';
+import { RegisterWithThirdParty } from './register-with-third-party/register-with-third-party';
 
 const router:Routes=[
   {path: 'login', component: Login },
   {path: 'register', component: Register },
   {path: 'confirm-email', component: ConfirmEmail },
   {path: 'send-email/:model', component:  SendEmail},
-  {path: 'reset-password',component:ResetPassword}
-
+  {path: 'reset-password',component:ResetPassword},
+  { path: 'register/third-party/:provider', component: RegisterWithThirdParty },
 ]
+
+
 
 @NgModule({
   declarations: [],

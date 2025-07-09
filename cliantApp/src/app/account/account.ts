@@ -11,6 +11,8 @@ import { ConfirmEmail } from './confirm-email/confirm-email';
 import { Confirm_Email } from '../shared/models/account/confirmEmail';
 import { ResetPassword } from './reset-password/reset-password';
 import { Reset_Password } from '../shared/models/account/resetPassword';
+import { RegisterWithExternal } from '../shared/models/account/registerWithExternal';
+import { LoginWithExternal } from '../shared/models/account/loginWithExternal';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +39,15 @@ export class Account {
   register(model:Register){
     return this.http.post(`${environment.appurl}/api/Account/Register`,model);
   }
+  loginWithThirdParty(model: LoginWithExternal) {
+    return this.http.post<User>(`${environment.appurl}/api/account/login-with-third-party`, model).pipe(
+      map((user: User) => {
+        if (user) {
+          this.setUser(user);
+        }
+      })
+    )
+  }
 
   confirmEmail(model: Confirm_Email) {
     return this.http.put(`${environment.appurl}/api/account/confirm-email`, model);
@@ -51,6 +62,15 @@ export class Account {
   }
   forgotUsernameOrPassword(email: string) {
     return this.http.post(`${environment.appurl}/api/account/forgot-username-or-password/${email}`, {});
+  }
+  registerWithThirdParty(model: RegisterWithExternal) {
+    return this.http.post<User>(`${environment.appurl}/api/account/register-with-third-party`, model).pipe(
+      map((user: User) => {
+        if (user) {
+          this.setUser(user);
+        }
+      })
+    );
   }
 
 

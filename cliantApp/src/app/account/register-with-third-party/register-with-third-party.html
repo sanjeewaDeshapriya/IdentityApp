@@ -1,0 +1,69 @@
+<div class="flex justify-center" *ngIf="provider && access_token && userId">
+    <div class="w-full max-w-md lg:max-w-lg">
+        <main class="p-8 bg-white rounded-lg shadow-lg">
+            <form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
+                <div class="mb-6 text-center">
+                    <h3 class="mb-3 text-2xl font-normal text-gray-800">
+                        Creating an account using your <span class="font-medium text-yellow-500">{{provider | titlecase}}</span>
+                    </h3>
+                </div>
+                
+                <div class="mb-6">
+                    <div class="relative">
+                        <input 
+                            formControlName="firstName" 
+                            type="text" 
+                            placeholder="First name" 
+                            class="w-full px-4 py-3 transition-all duration-200 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent peer"
+                            [class.border-red-500]="submitted && registerForm.get('firstName')?.errors"
+                            [class.ring-red-500]="submitted && registerForm.get('firstName')?.errors">
+                        <label class="absolute left-4 top-3 text-gray-500 transition-all duration-200 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-500 peer-[:not(:placeholder-shown)]:-translate-y-6 peer-[:not(:placeholder-shown)]:scale-75">
+                            First name
+                        </label>
+                    </div>
+                    <span class="block mt-1 text-sm text-red-500" *ngIf="submitted && registerForm.get('firstName')?.hasError('required')">
+                        First name is required
+                    </span>
+                    <span class="block mt-1 text-sm text-red-500"
+                        *ngIf="submitted && 
+                        registerForm.get('firstName')?.hasError('minlength') || registerForm.get('firstName')?.hasError('maxlength')">
+                        First name must be at least 3, and maximum 15 characters
+                    </span>
+                </div>
+                
+                <div class="mb-6">
+                    <div class="relative">
+                        <input 
+                            formControlName="lastName" 
+                            type="text" 
+                            placeholder="Last name" 
+                            class="w-full px-4 py-3 transition-all duration-200 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent peer"
+                            [class.border-red-500]="submitted && registerForm.get('lastName')?.errors"
+                            [class.ring-red-500]="submitted && registerForm.get('lastName')?.errors">
+                        <label class="absolute left-4 top-3 text-gray-500 transition-all duration-200 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-500 peer-[:not(:placeholder-shown)]:-translate-y-6 peer-[:not(:placeholder-shown)]:scale-75">
+                            Last name
+                        </label>
+                    </div>
+                    <span class="block mt-1 text-sm text-red-500" *ngIf="submitted && registerForm.get('lastName')?.hasError('required')">
+                        Last name is required
+                    </span>
+                    <span class="block mt-1 text-sm text-red-500"
+                        *ngIf="submitted && 
+                        registerForm.get('lastName')?.hasError('minlength') || registerForm.get('lastName')?.hasError('maxlength')">
+                        Last name must be at least 3, and maximum 15 characters
+                    </span>
+                </div>
+
+                
+
+                <div class="px-1 mt-6">
+                    <button 
+                        class="w-full px-4 py-3 font-medium text-white transition-colors duration-200 rounded-lg bg-cyan-500 hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2" 
+                        type="submit">
+                        Create Account
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
