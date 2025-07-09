@@ -1,0 +1,53 @@
+<div class="flex justify-center" >
+    <div class="w-full lg:w-5/12">
+        <main class="max-w-md mx-auto">
+            <form [formGroup]="emailForm" class="space-y-6" (ngSubmit)="sendEmail()" autocomplete="off">
+                <div class="mb-6 text-center">
+                    
+                    
+                </div>
+
+                <div class="mb-3">
+                    <div class="relative">
+                        <input 
+                            formControlName="email" 
+                            type="text" 
+                            placeholder="Email" 
+                            class="block w-full px-3 pt-6 pb-2 text-sm text-gray-900 border border-gray-300 rounded-lg appearance-none bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 peer"
+                            [class.border-red-500]="submitted && emailForm.get('email')?.errors"
+                            [class.focus:ring-red-500]="submitted && emailForm.get('email')?.errors"
+                            [class.focus:border-red-500]="submitted && emailForm.get('email')?.errors">
+                        <label for="email" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-3 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">
+                            Email
+                        </label>
+                    </div>
+                    <span class="block mt-1 text-sm text-red-500" *ngIf="submitted && emailForm.get('email')?.hasError('required')">
+                        Email is required
+                    </span>
+                    <span class="block mt-1 text-sm text-red-500" *ngIf="submitted && emailForm.get('email')?.hasError('pattern')">
+                        Invalid email address
+                    </span>
+                </div>
+
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <button class="w-full px-4 py-2 font-medium text-white transition duration-200 bg-green-600 rounded-lg hover:bg-green-700" type="submit" (click)="sendEmail()">
+                            Send
+                        </button>
+                    </div>
+                    <div>
+                        <button class="w-full px-4 py-2 font-medium text-white transition duration-200 bg-red-600 rounded-lg hover:bg-red-700" type="button" (click)="cancel()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+                <div>
+                        <button class="w-full px-4 py-2 font-medium text-white transition duration-200 bg-green-600 rounded-lg hover:bg-green-700" type="submit" (click)="resetpasswd()">
+                            Reset password
+                        </button>
+                    </div>
+            </form>
+        </main>
+    </div>
+</div>

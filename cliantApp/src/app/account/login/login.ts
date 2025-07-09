@@ -84,6 +84,11 @@ export class Login {
 
   }}
 
+  fogetPassword(){
+    this.router.navigateByUrl('/account/send-email/resend-email-confirmation-link');
+    alert("Foget Password");
+  }
+
   
 
 

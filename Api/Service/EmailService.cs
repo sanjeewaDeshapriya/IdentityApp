@@ -23,8 +23,8 @@ namespace Api.Service
 
             try {
 
-                var username = "";
-            var password = "";
+                var username = "sanjeewa@enhanzer.com";
+            var password = "Dilshan@20000719";
 
             var client =  new SmtpClient("smtp-mail.outlook.com", 587)
             {

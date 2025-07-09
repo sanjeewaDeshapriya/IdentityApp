@@ -1,12 +1,16 @@
 
 import { Injectable } from '@angular/core';
-import { Register } from '../shared/models/register';
+import { Register } from '../shared/models/account/register';
 import { environment } from '../../environments/environment.development';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LogIn } from  '../shared/models/Login';
-import { User } from '../shared/models/Login copy';
+import { LogIn } from  '../shared/models/account/Login';
+import { User } from '../shared/models/account/user';
 import { map, ReplaySubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { ConfirmEmail } from './confirm-email/confirm-email';
+import { Confirm_Email } from '../shared/models/account/confirmEmail';
+import { ResetPassword } from './reset-password/reset-password';
+import { Reset_Password } from '../shared/models/account/resetPassword';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +38,23 @@ export class Account {
     return this.http.post(`${environment.appurl}/api/Account/Register`,model);
   }
 
+  confirmEmail(model: Confirm_Email) {
+    return this.http.put(`${environment.appurl}/api/account/confirm-email`, model);
+  }
+
+  resendEmailConfirmationLink(email: string) {
+    return this.http.post(`${environment.appurl}/api/account/resend-email-confirmation-link/${email}`, {});
+  }
+
+  resetPassword(model: Reset_Password) {
+    return this.http.put(`${environment.appurl}/api/Account/reset-password`, model);
+  }
+  forgotUsernameOrPassword(email: string) {
+    return this.http.post(`${environment.appurl}/api/account/forgot-username-or-password/${email}`, {});
+  }
+
+
+
 
   refreshUser(jwt: string | null) {
   console.log("refreshUser called");
@@ -42,6 +63,8 @@ export class Account {
     this.userSource.next(null);
     return null // return an observable of null to maintain return type consistency
   }
+
+
 
   console.log(`jwt is ${jwt}`);
 

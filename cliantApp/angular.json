@@ -61,6 +61,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "sslCert": "ssl/localhost.pem",
+            "sslKey": "ssl/localhost-key.pem",
+            "ssl": true
+          },
           "configurations": {
             "production": {
               "buildTarget": "cliantApp:build:production"

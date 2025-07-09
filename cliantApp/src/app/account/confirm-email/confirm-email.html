@@ -1,0 +1,101 @@
+<div class="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+  <div class="w-full max-w-md">
+    
+    <!-- Success State -->
+    <div *ngIf="success" class="overflow-hidden transition-all duration-500 transform bg-white border border-gray-100 shadow-xl rounded-2xl hover:shadow-2xl">
+      <!-- Header -->
+      <div class="px-8 py-6 bg-green-50">
+        <div class="flex items-center justify-center mb-4">
+          <div class="flex items-center justify-center w-16 h-16 bg-green-100 rounded-full animate-pulse">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <h2 class="mb-2 text-2xl font-bold text-center text-green-800">
+          Email Confirmed!
+        </h2>
+        <p class="text-sm text-center text-green-600">
+          Your account has been successfully verified
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div class="px-8 py-6">
+        <div class="space-y-4 text-center">
+          <p class="text-gray-600">
+            Great! You can now access all features of your account.
+          </p>
+          
+          <!-- Login Button -->
+          <button 
+            (click)="goTOLogin()"
+            type="button"
+            class="inline-flex items-center justify-center w-full px-6 py-3 font-semibold text-white transition-all duration-200 transform shadow-lg bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl hover:from-blue-700 hover:to-blue-800 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300 group">
+                        <span>Continue to Login</span>
+            <svg class="w-5 h-5 ml-2 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pending State -->
+    <div *ngIf="!success" class="overflow-hidden transition-all duration-500 transform bg-white border border-gray-100 shadow-xl rounded-2xl hover:shadow-2xl">
+      <!-- Header -->
+      <div class="px-8 py-6 bg-blue-50">
+        <div class="flex items-center justify-center mb-4">
+          <div class="flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full">
+            <svg class="w-8 h-8 text-blue-600 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <h2 class="mb-2 text-2xl font-bold text-center text-blue-800">
+          Check Your Email
+        </h2>
+        <p class="text-sm text-center text-blue-600">
+          {{error}}
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div class="px-8 py-6">
+        <div class="space-y-6 text-center">
+          <div class="space-y-2">
+            <p class="text-gray-600">
+              Please check your email and click the confirmation link to verify your account.
+            </p>
+            <p class="text-sm text-gray-500">
+              Don't forget to check your spam folder!
+            </p>
+          </div>
+
+          <!-- Resend Button -->
+          <button (click)="resendEmailConfirmationLink()" 
+                  class="inline-flex items-center justify-center w-full px-6 py-3 font-semibold text-blue-600 transition-all duration-200 transform border-2 border-blue-600 rounded-xl hover:bg-blue-600 hover:text-white hover:scale-105 group">
+            
+            <!-- Refresh Icon -->
+            <svg class="w-5 h-5 mr-2 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            
+            <span>Resend Confirmation Email</span>
+          </button>
+
+          <!-- Help Text -->
+          <div class="pt-4 border-t border-gray-100">
+            <p class="text-xs text-gray-500">
+              Having trouble? Contact our 
+              <a href="mailto:support@example.com" class="text-blue-600 underline hover:text-blue-700">support team</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
